@@ -70,22 +70,23 @@ for ($i = 0; $i < count($wall); $i++) {
     		$icon_vid = ($value->video->photo_640)?$value->video->photo_640:$value->video->photo_800;
     	}
     	else {
-    		// $fp = strpos($value->video->description, 'iframe src'); //получим позицуию тег iframe 
-    		// if ($fp>0){ 
     		// 	$cod_iframe = substr($value->video->description,$fp-1);
-    		// 	$sp = strpos($cod_iframe,'//'); //получим позицию начала ссылки
-    		// 	$prp = strpos($cod_iframe,'" '); //получим позицию конца ссылки
-    		// 	$len_src = $prp - $sp + 1;  //получим длину ссылки
-    		// 	$podstr_before = substr($cod_iframe,0,$sp); //получим код перед подстрокой т.е. <iframe src="
-    		// 	$podstr_after = substr($cod_iframe,$prp+1);  //получим код после подстроки т.е.    width="..." height="..." frameborder="0" allowfullscreen></iframe>
-    		// 	$podstr = substr($cod_iframe,$sp,$len_src); //получим саму подстроку
-    		// 	$podstr= str_replace(' ', '', $podstr);
-    		// 	$podstr_end = 'width="640" height="360" frameborder="0" allowfullscreen></iframe>';
-    		// 	$vidSrc[] = '[/embed]'.$podstr_before.$podstr.$podstr_end.'[embed]'; 
-    		// 	}
-    		// else {
-    		// 	$vidSrc[] = 'ссылка на видео vk.com/video'.$value->video->owner_id.'_'.$value->video->id;
-    		// }
+    		$fp = strpos($value->video->description, 'iframe src'); //получим позицуию тег iframe 
+    		if ($fp>0){ 
+    			$cod_iframe = substr($value->video->description,$fp-1);
+    			$sp = strpos($cod_iframe,'//'); //получим позицию начала ссылки
+    			$prp = strpos($cod_iframe,'" '); //получим позицию конца ссылки
+    			$len_src = $prp - $sp + 1;  //получим длину ссылки
+    			$podstr_before = substr($cod_iframe,0,$sp); //получим код перед подстрокой т.е. <iframe src="
+    			$podstr_after = substr($cod_iframe,$prp+1);  //получим код после подстроки т.е.    width="..." height="..." frameborder="0" allowfullscreen></iframe>
+    			$podstr = substr($cod_iframe,$sp,$len_src); //получим саму подстроку
+    			$podstr= str_replace(' ', '', $podstr);
+    			$podstr_end = 'width="640" height="360" frameborder="0" allowfullscreen></iframe>';
+    			$vidSrc[] = '[/embed]'.$podstr_before.$podstr.$podstr_end.'[embed]'; 
+    			}
+    		else {
+    			$vidSrc[] = 'ссылка на видео vk.com/video'.$value->video->owner_id.'_'.$value->video->id;
+    		}
     		//если не вставлять видео, а только ссылки на видео в ВК то использовать код ниже, иначе код выше, а ниже закомментить
     		$vidSrc[] = 'vk.com/video'.$value->video->owner_id.'_'.$value->video->id;
     		if (!$icon){
