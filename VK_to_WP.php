@@ -70,7 +70,6 @@ for ($i = 0; $i < count($wall); $i++) {
     		$icon_vid = ($value->video->photo_640)?$value->video->photo_640:$value->video->photo_800;
     	}
     	else {
-    		// 	$cod_iframe = substr($value->video->description,$fp-1);
     		$fp = strpos($value->video->description, 'iframe src'); //получим позицуию тег iframe 
     		if ($fp>0){ 
     			$cod_iframe = substr($value->video->description,$fp-1);
